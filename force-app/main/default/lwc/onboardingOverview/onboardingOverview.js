@@ -19,7 +19,8 @@ const STANDARD_TOUCHPOINTS = [
     { phase: 'PRE-PHASE', phaseKey: 'Pre-Phase', items: [
         { key: 'ihc1', name: 'IHC #1 \u2014 Internal Handover Call', field: 'IHC1_Date__c', slaName: 'IHC #1', type: 'Internal' },
         { key: 'ats-onboarding', name: 'ATS Onboarding', field: null, slaName: null, type: 'O-Team' },
-        { key: 'intro', name: 'Intro Call', field: 'Intro_Date__c', slaName: 'Intro Call', type: 'Customer' }
+        { key: 'intro', name: 'Intro Call', field: 'Intro_Date__c', slaName: 'Intro Call', type: 'Customer' },
+        { key: 'kampagneabnahme', name: 'Kampagneabnahme', field: 'Kampagneabnahme_Date__c', slaName: null, type: 'Customer', nonIntegrationOnly: true }
     ]},
     { phase: 'PHASE 1 \u2014 ACTIVATION', phaseKey: 'Phase 1', items: [
         { key: 'kickoff', name: 'Kickoff', field: 'Kickoff_Date__c', slaName: 'Kickoff', type: 'Customer' }
@@ -54,6 +55,15 @@ const ATS_ETA_OPTIONS = [
     { label: '1-2 Weeks', value: '1-2 Weeks' },
     { label: '2-4 Weeks', value: '2-4 Weeks' },
     { label: '>4 Weeks', value: '>4 Weeks' }
+];
+
+const CALL_QUALITY_OPTIONS = [
+    { label: '-- Select --', value: '' },
+    { label: '1 - Poor', value: '1' },
+    { label: '2 - Below Average', value: '2' },
+    { label: '3 - Average', value: '3' },
+    { label: '4 - Good', value: '4' },
+    { label: '5 - Excellent', value: '5' }
 ];
 
 const EARLY_GOLIVE_OPTIONS = [
@@ -134,6 +144,7 @@ export default class OnboardingOverview extends LightningElement {
     modalNotes = '';
     isSaving = false;
 
+    callQualityOptions = CALL_QUALITY_OPTIONS;
     atsSetupPathOptions = ATS_SETUP_PATH_OPTIONS;
     atsEtaOptions = ATS_ETA_OPTIONS;
     earlyGoLiveOptions = EARLY_GOLIVE_OPTIONS;
@@ -306,6 +317,45 @@ export default class OnboardingOverview extends LightningElement {
         return !!this.onboarding;
     }
 
+    // ── Integration Sold (from Account via Onboarding query) ──
+
+    get isIntegrationSold() {
+        return this.onboarding && this.onboarding.Account__r && this.onboarding.Account__r.Integration_Sold__c === true;
+    }
+
+    // ── Kampagneabnahme expanded data ──
+
+    get kampagneabnahmeLocalDate() {
+        if (!this.onboarding || !this.onboarding.Kampagneabnahme_Date__c) return '';
+        const d = new Date(this.onboarding.Kampagneabnahme_Date__c);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    get kampagneabnahmeLocalTime() {
+        if (!this.onboarding || !this.onboarding.Kampagneabnahme_Date__c) return '';
+        const d = new Date(this.onboarding.Kampagneabnahme_Date__c);
+        return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+    }
+
+    get kampagneabnahmeCallQuality() {
+        return this.onboarding ? this.onboarding.Kampagneabnahme_Call_Quality__c || '' : '';
+    }
+
+    handleKampagneabnahmeDatePartChange(event) {
+        const part = event.currentTarget.dataset.field;
+        let datePart = this.kampagneabnahmeLocalDate || '';
+        let timePart = this.kampagneabnahmeLocalTime || '09:00';
+        if (part === 'date') datePart = event.detail.value;
+        if (part === 'time') timePart = event.detail.value;
+        if (!datePart) return; // need at least a date
+        const combined = new Date(`${datePart}T${timePart}`);
+        this.saveOnbField('Kampagneabnahme_Date__c', combined.toISOString());
+    }
+
+    handleKampagneabnahmeQualityChange(event) {
+        this.saveOnbField('Kampagneabnahme_Call_Quality__c', event.detail.value);
+    }
+
     // ── Computed: Timeline with expand state ──
 
     get timelinePhases() {
@@ -313,9 +363,16 @@ export default class OnboardingOverview extends LightningElement {
 
         const slaMap = {};
         this.slaResults.forEach(r => { slaMap[r.touchpointName] = r; });
+        const integrationSold = this.isIntegrationSold;
 
         return STANDARD_TOUCHPOINTS.map(phaseGroup => {
-            const items = phaseGroup.items.map(tp => {
+            const items = phaseGroup.items
+            .filter(tp => {
+                // Hide non-integration-only items when integration IS sold
+                if (tp.nonIntegrationOnly && integrationSold) return false;
+                return true;
+            })
+            .map(tp => {
                 // Special handling for ATS Onboarding — data comes from Case, not Onboarding__c
                 if (tp.key === 'ats-onboarding') {
                     const hasCase = this.hasAtsCase;
@@ -371,7 +428,8 @@ export default class OnboardingOverview extends LightningElement {
                     isIhc1: tp.key === 'ihc1',
                     isIntro: tp.key === 'intro',
                     isAtsOnboarding: false,
-                    isGeneric: tp.key !== 'ihc1' && tp.key !== 'intro'
+                    isKampagneabnahme: tp.key === 'kampagneabnahme',
+                    isGeneric: tp.key !== 'ihc1' && tp.key !== 'intro' && tp.key !== 'kampagneabnahme'
                 };
             });
 
