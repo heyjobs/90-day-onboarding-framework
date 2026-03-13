@@ -282,7 +282,54 @@
                                             </div>
                                         </template>
 
-                                        <!-- ══ EXPANDED: Generic (future phases) ══ -->
+                                        <!-- ══ EXPANDED: Customer Call (with Call Insights) ══ -->
+                                        <template lwc:if={item.isCustomerCall}>
+                                            <div class="expanded-content">
+                                                <div class="expanded-section">
+                                                    <p class="expanded-section-title">Call Insights</p>
+                                                    <template lwc:if={item.hasCallInsight}>
+                                                        <p class="call-insight-source">Auto-populated by Demodesk</p>
+                                                    </template>
+                                                    <div class="call-insight-grid">
+                                                        <div class="call-insight-field">
+                                                            <span class="call-insight-label">Participants</span>
+                                                            <div class="call-insight-value">{item.participantsDisplay}</div>
+                                                        </div>
+                                                        <div class="call-insight-field">
+                                                            <span class="call-insight-label">Key Summary</span>
+                                                            <div class="call-insight-value call-insight-summary">{item.keySummaryDisplay}</div>
+                                                        </div>
+                                                        <div class="call-insight-field">
+                                                            <span class="call-insight-label">Outcome &amp; Next Steps</span>
+                                                            <div class="call-insight-value">{item.outcomeDisplay}</div>
+                                                        </div>
+                                                        <div class="call-insight-field">
+                                                            <span class="call-insight-label">Customer Sentiment</span>
+                                                            <div class="call-insight-value">
+                                                                <template lwc:if={item.hasSentiment}>
+                                                                    <span class={item.sentimentClass}>{item.sentimentDisplay}</span>
+                                                                </template>
+                                                                <template lwc:else>
+                                                                    <span class="call-insight-empty">&mdash;</span>
+                                                                </template>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="call-insight-field slds-m-top_small">
+                                                        <lightning-textarea
+                                                            label="ACM Notes"
+                                                            value={item.acmNotesValue}
+                                                            data-event-id={item.eventId}
+                                                            data-tp-key={item.key}
+                                                            onchange={handleAcmNotesChange}
+                                                            placeholder="Add notes for anything not captured by Demodesk..."
+                                                        ></lightning-textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                        <!-- ══ EXPANDED: Generic (non-customer touchpoints) ══ -->
                                         <template lwc:if={item.isGeneric}>
                                             <div class="expanded-content">
                                                 <div class="expanded-section">

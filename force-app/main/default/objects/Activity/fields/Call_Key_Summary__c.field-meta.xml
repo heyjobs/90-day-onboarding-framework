@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Call_Key_Summary__c</fullName>
+    <label>Call Key Summary</label>
+    <type>TextArea</type>
+    <inlineHelpText>Key summary of the call. Auto-populated by Demodesk CRM Concierge.</inlineHelpText>
+</CustomField>
