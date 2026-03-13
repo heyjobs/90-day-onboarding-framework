@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Integration_Sold__c</fullName>
+    <label>Integration Sold</label>
+    <type>Checkbox</type>
+    <defaultValue>false</defaultValue>
+    <inlineHelpText>Indicates whether an integration (ATS/REACH) was sold to this customer. Set automatically at Quote Acceptance. When TRUE, an [ATS] New Onboarding Case is auto-created.</inlineHelpText>
+    <externalId>false</externalId>
+</CustomField>
