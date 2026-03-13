@@ -224,6 +224,62 @@ public with sharing class OnboardingController {
     }
 
     /**
+     * Get call insight Events for an Account's onboarding touchpoints.
+     * Matches Events to touchpoint date fields by comparing Event date to touchpoint date.
+     * Returns a map of touchpoint key → Event record.
+     */
+    @AuraEnabled(cacheable=true)
+    public static Map<String, Event> getCallInsights(Id accountId, Map<String, String> touchpointDates) {
+        if (touchpointDates == null || touchpointDates.isEmpty()) {
+            return new Map<String, Event>();
+        }
+
+        // Query all Events on this Account that have call insight data
+        List<Event> events = [
+            SELECT Id, Subject, StartDateTime,
+                   Call_Participants__c, Call_Key_Summary__c,
+                   Call_Outcome_Next_Steps__c, Call_Customer_Sentiment__c,
+                   Call_ACM_Notes__c
+            FROM Event
+            WHERE AccountId = :accountId
+            ORDER BY StartDateTime ASC
+        ];
+
+        Map<String, Event> result = new Map<String, Event>();
+
+        for (String tpKey : touchpointDates.keySet()) {
+            String dateStr = touchpointDates.get(tpKey);
+            if (String.isBlank(dateStr)) continue;
+
+            Date tpDate;
+            try {
+                tpDate = Date.valueOf(dateStr.substring(0, 10));
+            } catch (Exception e) {
+                continue;
+            }
+
+            // Find the Event whose start date matches the touchpoint date
+            for (Event evt : events) {
+                if (evt.StartDateTime != null && evt.StartDateTime.date() == tpDate) {
+                    result.put(tpKey, evt);
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Save ACM Notes on an Event record.
+     */
+    @AuraEnabled
+    public static void saveEventAcmNotes(Id eventId, String notes) {
+        Event evt = new Event(Id = eventId, Call_ACM_Notes__c = notes);
+        update evt;
+    }
+
+    /**
      * Create an Onboarding + Success Plan pair for an Account.
      */
     @AuraEnabled
