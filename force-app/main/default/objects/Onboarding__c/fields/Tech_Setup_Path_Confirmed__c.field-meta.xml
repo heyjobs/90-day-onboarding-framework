@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tech_Setup_Path_Confirmed__c</fullName>
+    <label>Tech Setup Path Confirmed</label>
+    <defaultValue>false</defaultValue>
+    <type>Checkbox</type>
+</CustomField>

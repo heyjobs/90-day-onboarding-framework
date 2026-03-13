@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Current_Day__c</fullName>
+    <label>Current Day</label>
+    <description>Calendar days since Day 0</description>
+    <formula>IF(ISBLANK(Day0_Date__c), NULL, TODAY() - Day0_Date__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <precision>18</precision>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

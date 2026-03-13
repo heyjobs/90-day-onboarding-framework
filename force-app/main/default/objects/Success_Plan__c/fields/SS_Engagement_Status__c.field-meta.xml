@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SS_Engagement_Status__c</fullName>
+    <label>SS Engagement Status</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>Not Connected</fullName><default>false</default><label>Not Connected</label></value>
+            <value><fullName>Attempt 1 - No Response</fullName><default>false</default><label>Attempt 1 - No Response</label></value>
+            <value><fullName>Attempt 2 - No Response</fullName><default>false</default><label>Attempt 2 - No Response</label></value>
+            <value><fullName>Connected</fullName><default>false</default><label>Connected</label></value>
+            <value><fullName>F2F Attended</fullName><default>false</default><label>F2F Attended</label></value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

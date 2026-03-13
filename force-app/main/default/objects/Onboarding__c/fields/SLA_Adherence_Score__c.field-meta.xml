@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLA_Adherence_Score__c</fullName>
+    <label>SLA Adherence Score</label>
+    <description>Percentage of touchpoints completed within their SLA window</description>
+    <precision>5</precision>
+    <scale>1</scale>
+    <required>false</required>
+    <type>Percent</type>
+</CustomField>

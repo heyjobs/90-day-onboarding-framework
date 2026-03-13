@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expectation_Delta__c</fullName>
+    <label>Expectation Delta</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>Within Range (+-20%)</fullName><default>false</default><label>Within Range (+-20%)</label></value>
+            <value><fullName>Above Expectation</fullName><default>false</default><label>Above Expectation</label></value>
+            <value><fullName>Below Expectation - Explained</fullName><default>false</default><label>Below Expectation - Explained</label></value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Onboarding Tab Visibility</masterLabel>
+    <description>Broadcasts onboarding tab state: visibility, current phase, and record IDs for sidebar components</description>
+    <isExposed>false</isExposed>
+    <lightningMessageFields>
+        <fieldName>visible</fieldName>
+        <description>true when the onboarding tab is active, false when navigating away</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>currentPhase</fieldName>
+        <description>Currently selected phase step (overview, pre-phase, phase-1, phase-2, phase-3, phase-4)</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>accountId</fieldName>
+        <description>Account record Id from the page</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>onboardingId</fieldName>
+        <description>Onboarding__c record Id (null if no onboarding exists)</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <fieldName>navigateToTouchpoint</fieldName>
+        <description>Touchpoint key to navigate to and expand (e.g. ihc1, kickoff, f2f, tlgate) or sidebar panel name (successPlan)</description>
+    </lightningMessageFields>
+</LightningMessageChannel>

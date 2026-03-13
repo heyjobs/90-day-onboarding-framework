@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Next_Step_Risk_Comment__c</fullName>
+    <label>Next Step Risk Comment</label>
+    <description>Risk driver and retention plan?</description>
+    <length>32768</length>
+    <visibleLines>2</visibleLines>
+    <type>LongTextArea</type>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Close_Off_Date__c</fullName>
+    <label>Close-Off Date</label>
+    <description>Day 0 + 90 calendar days</description>
+    <formula>Day0_Date__c + 90</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <type>Date</type>
+</CustomField>

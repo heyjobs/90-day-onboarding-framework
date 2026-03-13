@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Org_Picture__c</fullName>
+    <label>Complete Org Picture</label>
+    <description>Hierarchy, decision-making, recruiting process, dynamics</description>
+    <length>32768</length>
+    <visibleLines>5</visibleLines>
+    <type>LongTextArea</type>
+</CustomField>
