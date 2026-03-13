@@ -1,0 +1,288 @@
+<template>
+    <template lwc:if={hasOnboarding}>
+        <!-- Touchpoint Timeline -->
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Touchpoint Timeline</span>
+                <button class="slds-button slds-button_neutral slds-button_small add-tp-header-btn" data-phase="" onclick={handleOpenAddModal}>
+                    <lightning-icon icon-name="utility:add" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                    Add Touchpoint
+                </button>
+            </div>
+            <div class="card-body">
+                <template for:each={timelinePhases} for:item="phaseGroup">
+                    <div key={phaseGroup.phaseKey} class="tl-phase">
+                        <p class={phaseGroup.phaseClass}>{phaseGroup.phase}</p>
+                        <div class="tl-timeline">
+                            <template for:each={phaseGroup.items} for:item="item">
+                                <div key={item.key} class="tl-item-wrapper">
+                                    <!-- (+) Add button above each item -->
+                                    <div class="tl-add-between">
+                                        <span class="tl-add-icon" title="Add touchpoint here" data-phase={phaseGroup.phaseKey} onclick={handleOpenAddModal}>+</span>
+                                    </div>
+
+                                    <!-- Touchpoint card header (always visible, click to expand) -->
+                                    <div class={item.cardClass} data-key={item.key} onclick={handleToggleExpand}>
+                                        <div class="ov-tp-top">
+                                            <lightning-icon icon-name={item.chevronIcon} size="xx-small" class="slds-m-right_xx-small chevron-icon"></lightning-icon>
+                                            <span class="ov-tp-name">{item.name}</span>
+                                            <div class="ov-tp-badges">
+                                                <template lwc:if={item.isAdditional}>
+                                                    <span class="sla-badge sla-muted">{item.slaLabel}</span>
+                                                </template>
+                                                <template lwc:elseif={item.hasSla}>
+                                                    <span class={item.slaBadgeClass}>{item.slaLabel}</span>
+                                                </template>
+                                                <template lwc:elseif={item.isOverdue}>
+                                                    <span class="sla-badge sla-red">{item.slaLabel}</span>
+                                                </template>
+                                                <template lwc:elseif={item.isPending}>
+                                                    <template lwc:if={item.slaLabel}>
+                                                        <span class="sla-badge sla-muted">{item.slaLabel}</span>
+                                                    </template>
+                                                </template>
+                                                <template lwc:if={item.isDone}>
+                                                    <span class="badge-done">&#10003; Done</span>
+                                                </template>
+                                            </div>
+                                        </div>
+                                        <div class="ov-tp-meta">
+                                            <template lwc:if={item.isDone}>
+                                                <span>{item.date}</span>
+                                            </template>
+                                            <template lwc:else>
+                                                <span class="ov-tp-meta-pending">{item.date}</span>
+                                            </template>
+                                            <template lwc:if={item.isAdditional}>
+                                                <span class="ov-tp-meta-additional">{item.durationMinutes} min</span>
+                                            </template>
+                                        </div>
+                                    </div>
+
+                                    <!-- ══ EXPANDED: IHC #1 ══ -->
+                                    <template lwc:if={item.isExpanded}>
+                                        <template lwc:if={item.isIhc1}>
+                                            <div class="expanded-content">
+                                                <!-- Sub-section 1: Pilot Handover Documentation Review -->
+                                                <div class="sub-section slds-m-bottom_small">
+                                                    <div class="sub-section-header" data-subsection="handover" onclick={handleToggleSubSection}>
+                                                        <lightning-icon icon-name={subSectionHandoverChevron} size="xx-small" class="slds-m-right_xx-small chevron-icon"></lightning-icon>
+                                                        <span class="sub-section-title">Pilot Handover Documentation Review</span>
+                                                        <span class={handoverSlaClass}>{handoverSlaStatus}</span>
+                                                    </div>
+                                                    <template lwc:if={isSubSectionHandoverExpanded}>
+                                                        <div class="sub-section-body">
+                                                            <div class="sub-section-row">
+                                                                <span class="sub-section-label">Documentation Shared with ACM</span>
+                                                                <span class="sub-section-value">{handoverDocSharedTimestamp}</span>
+                                                            </div>
+                                                            <div class="sub-section-row">
+                                                                <span class="sub-section-label">Documentation Reviewed by ACM</span>
+                                                                <span class="sub-section-value">{handoverDocReviewedTimestamp}</span>
+                                                            </div>
+                                                            <div class="sub-section-row">
+                                                                <span class="sub-section-label">Task Status</span>
+                                                                <span class="sub-section-value">{handoverTaskStatus}</span>
+                                                            </div>
+                                                            <div class="sub-section-row">
+                                                                <span class="sub-section-label">SLA (2 working days)</span>
+                                                                <span class={handoverSlaClass}>{handoverSlaStatus}</span>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+
+                                                <!-- Sub-section 2: Customer Context Validated -->
+                                                <div class="sub-section slds-m-bottom_small">
+                                                    <div class="sub-section-header" data-subsection="context" onclick={handleToggleSubSection}>
+                                                        <lightning-icon icon-name={subSectionContextChevron} size="xx-small" class="slds-m-right_xx-small chevron-icon"></lightning-icon>
+                                                        <span class="sub-section-title">Customer Context Validated</span>
+                                                        <template lwc:if={customerContextValidated}>
+                                                            <span class="sla-badge sla-green">Validated</span>
+                                                        </template>
+                                                        <template lwc:else>
+                                                            <span class="sla-badge sla-muted">Pending</span>
+                                                        </template>
+                                                    </div>
+                                                    <template lwc:if={isSubSectionContextExpanded}>
+                                                        <div class="sub-section-body">
+                                                            <div class="sub-section-row">
+                                                                <span class="sub-section-label">Handover Documentation Quality</span>
+                                                                <span class="sub-section-value">{handoverQuality}</span>
+                                                            </div>
+                                                            <div class="sub-section-row">
+                                                                <span class="sub-section-label">Quality Comments</span>
+                                                                <span class="sub-section-value">{handoverQualityComments}</span>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
+
+                                            </div>
+                                        </template>
+
+                                        <!-- ══ EXPANDED: ATS Onboarding ══ -->
+                                        <template lwc:if={item.isAtsOnboarding}>
+                                            <div class="expanded-content">
+                                                <div class="expanded-section">
+                                                    <template lwc:if={hasAtsCase}>
+                                                        <div class="slds-grid slds-gutters_small slds-m-bottom_small">
+                                                            <div class="slds-col slds-size_1-of-2">
+                                                                <div class="sub-section-row">
+                                                                    <span class="sub-section-label">Case Number</span>
+                                                                    <span class="sub-section-value">{atsCaseNumber}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2">
+                                                                <div class="sub-section-row">
+                                                                    <span class="sub-section-label">Status</span>
+                                                                    <span class="sub-section-value">{atsCaseStatus}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-grid slds-gutters_small slds-m-bottom_small">
+                                                            <div class="slds-col slds-size_1-of-2">
+                                                                <div class="sub-section-row">
+                                                                    <span class="sub-section-label">Subject</span>
+                                                                    <span class="sub-section-value">{atsCaseSubject}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2">
+                                                                <div class="sub-section-row">
+                                                                    <span class="sub-section-label">Priority</span>
+                                                                    <span class="sub-section-value">{atsCasePriority}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-grid slds-gutters_small slds-m-bottom_small">
+                                                            <div class="slds-col slds-size_1-of-2">
+                                                                <div class="sub-section-row">
+                                                                    <span class="sub-section-label">Owner</span>
+                                                                    <span class="sub-section-value">{atsCaseOwner}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-col slds-size_1-of-2">
+                                                                <div class="sub-section-row">
+                                                                    <span class="sub-section-label">Created Date</span>
+                                                                    <span class="sub-section-value">{atsCaseCreatedDate}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="sub-section-row">
+                                                            <span class="sub-section-label">Integration Type</span>
+                                                            <span class="sub-section-value">{atsCaseIntegrationType}</span>
+                                                        </div>
+                                                    </template>
+                                                    <template lwc:else>
+                                                        <p class="slds-text-body_small slds-text-color_weak slds-p-around_small">
+                                                            No ATS Onboarding case found for this account.
+                                                        </p>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                        <!-- ══ EXPANDED: Intro Call ══ -->
+                                        <template lwc:if={item.isIntro}>
+                                            <div class="expanded-content">
+                                                <div class="expanded-section">
+                                                    <p class="expanded-section-title">Agenda &amp; Guided Documentation</p>
+                                                    <template for:each={introItems} for:item="ii">
+                                                        <div key={ii.key} class="checklist-item">
+                                                            <lightning-input type="checkbox" label={ii.label} checked={ii.checked} data-field={ii.field} data-target={ii.target} onchange={handleIntroCheck}></lightning-input>
+                                                            <template lwc:if={ii.hint}>
+                                                                <p class="checklist-hint slds-m-left_xx-large">{ii.hint}</p>
+                                                            </template>
+                                                            <template lwc:if={ii.textField}>
+                                                                <div class="slds-m-left_xx-large slds-m-top_xx-small">
+                                                                    <lightning-textarea value={ii.textValue} data-field={ii.textField} data-target={ii.target} onchange={handleIntroTextChange} variant="label-hidden"></lightning-textarea>
+                                                                </div>
+                                                            </template>
+                                                            <template lwc:if={ii.picklistOptions}>
+                                                                <div class="slds-m-left_xx-large slds-m-top_xx-small">
+                                                                    <lightning-combobox value={ii.picklistValue} options={ii.picklistOptions} data-field={ii.field} onchange={handleIntroPicklistChange} variant="label-hidden"></lightning-combobox>
+                                                                </div>
+                                                            </template>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                        <!-- ══ EXPANDED: Generic (future phases) ══ -->
+                                        <template lwc:if={item.isGeneric}>
+                                            <div class="expanded-content">
+                                                <div class="expanded-section">
+                                                    <p class="slds-text-body_small slds-text-color_weak slds-p-around_small">
+                                                        Detailed guided mask for this touchpoint will be available in a future release.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </template>
+                                </div>
+                            </template>
+
+                            <!-- (+) Add button at bottom of phase -->
+                            <div class="tl-add-between tl-add-bottom">
+                                <span class="tl-add-icon" title="Add touchpoint here" data-phase={phaseGroup.phaseKey} onclick={handleOpenAddModal}>+</span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+
+    <template lwc:else>
+        <div class="slds-text-align_center slds-p-around_large">
+            <p class="slds-text-body_regular slds-text-color_weak">No onboarding record found for this account.</p>
+        </div>
+    </template>
+
+    <!-- ══ Add Touchpoint Modal ══ -->
+    <template lwc:if={showModal}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="Close" size="small"></lightning-icon>
+                    </button>
+                    <h2 class="slds-modal__title slds-hyphenate">Add Touchpoint</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <div class="slds-m-bottom_small">
+                        <lightning-input label="Subject" value={modalSubject} data-field="modalSubject" onchange={handleModalFieldChange} required></lightning-input>
+                    </div>
+                    <div class="slds-grid slds-gutters_small slds-m-bottom_small">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-combobox label="Type" value={modalType} options={touchpointTypeOptions} data-field="modalType" onchange={handleModalFieldChange}></lightning-combobox>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-combobox label="Phase" value={modalPhase} options={phaseOptions} data-field="modalPhase" onchange={handleModalFieldChange}></lightning-combobox>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters_small slds-m-bottom_small">
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input type="date" label="Date" value={modalDate} data-field="modalDate" onchange={handleModalFieldChange} required></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-combobox label="Duration" value={modalDuration} options={durationOptions} data-field="modalDuration" onchange={handleModalFieldChange}></lightning-combobox>
+                        </div>
+                    </div>
+                    <div class="slds-m-bottom_small">
+                        <lightning-textarea label="Notes" value={modalNotes} data-field="modalNotes" onchange={handleModalFieldChange} placeholder="Optional notes about this touchpoint"></lightning-textarea>
+                    </div>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={handleCloseModal}>Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={handleSaveTouchpoint} disabled={isSaving}>
+                        <template lwc:if={isSaving}>Saving...</template>
+                        <template lwc:else>Save</template>
+                    </button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

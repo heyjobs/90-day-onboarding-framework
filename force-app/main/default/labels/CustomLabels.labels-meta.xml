@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Onboarding_Tab_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Onboarding Tab Name</shortDescription>
+        <value>90 Day Onboarding</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_PrePhase_Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Pre-Phase Title</shortDescription>
+        <value>Pre-Phase</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase1_Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 1 Title</shortDescription>
+        <value>Phase 1 — First 30 Days</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase2_Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 2 Title</shortDescription>
+        <value>Phase 2 — Days 31–60</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase3_Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 3 Title</shortDescription>
+        <value>Phase 3 — Days 61–90</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_PrePhase_Mission</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Pre-Phase ACM Mission</shortDescription>
+        <value>My customer knows who I am. Setup is in motion. We are ready for Day 0.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_PrePhase_CustomerState</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Pre-Phase Expected Customer State</shortDescription>
+        <value>They know who their ACM is and that setup is already in motion.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Overview_Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Overview Tab Title</shortDescription>
+        <value>Overview</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase4_Title</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 4 Title</shortDescription>
+        <value>Phase 4 — Days 75–90</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase1_Mission</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 1 ACM Mission</shortDescription>
+        <value>My customer has a successful first experience. Activation is confirmed.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase1_CustomerState</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 1 Expected Customer State</shortDescription>
+        <value>They have had their kickoff and see value. Product is activated.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase2_Mission</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 2 ACM Mission</shortDescription>
+        <value>My customer is building habits. O-Min is validated. We are gaining momentum.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase2_CustomerState</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 2 Expected Customer State</shortDescription>
+        <value>They are using the product regularly. Key workflows are established.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase3_Mission</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 3 ACM Mission</shortDescription>
+        <value>My customer is performing. F2F relationship is established. We are on track.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase3_CustomerState</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 3 Expected Customer State</shortDescription>
+        <value>They are seeing results. Senior stakeholder is engaged.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase4_Mission</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 4 ACM Mission</shortDescription>
+        <value>My customer is ready to stand on their own. Transition is clean.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_Phase4_CustomerState</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Phase 4 Expected Customer State</shortDescription>
+        <value>They are confident and independent. Ready for ongoing partnership.</value>
+    </labels>
+</CustomLabels>
