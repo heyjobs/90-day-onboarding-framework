@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Health_Yellow_Comment__c</fullName>
+    <label>Health Yellow Comment</label>
+    <description>What is the gap and plan to return to green?</description>
+    <length>32768</length>
+    <visibleLines>2</visibleLines>
+    <type>LongTextArea</type>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Recruiting_Process_E2E__c</fullName>
+    <label>Recruiting Process E2E</label>
+    <description>End-to-end recruiting process documentation</description>
+    <length>32768</length>
+    <visibleLines>5</visibleLines>
+    <type>LongTextArea</type>
+</CustomField>

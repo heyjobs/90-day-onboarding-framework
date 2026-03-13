@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>IHC #1</label>
+    <protected>false</protected>
+    <values>
+        <field>Touchpoint_Name__c</field>
+        <value xsi:type="xsd:string">IHC #1 — Internal Handover Call</value>
+    </values>
+    <values>
+        <field>Anchor_Field__c</field>
+        <value xsi:type="xsd:string">ACM_Assignment_Date__c</value>
+    </values>
+    <values>
+        <field>Window_Start_Offset__c</field>
+        <value xsi:type="xsd:double">0</value>
+    </values>
+    <values>
+        <field>Window_End_Offset__c</field>
+        <value xsi:type="xsd:double">2</value>
+    </values>
+    <values>
+        <field>Unit__c</field>
+        <value xsi:type="xsd:string">WD</value>
+    </values>
+    <values>
+        <field>Critical_Threshold_Offset__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Date_Field__c</field>
+        <value xsi:type="xsd:string">IHC1_Date__c</value>
+    </values>
+    <values>
+        <field>Breach_Action__c</field>
+        <value xsi:type="xsd:string">Now-Item</value>
+    </values>
+    <values>
+        <field>Sort_Order__c</field>
+        <value xsi:type="xsd:double">1</value>
+    </values>
+</CustomMetadata>

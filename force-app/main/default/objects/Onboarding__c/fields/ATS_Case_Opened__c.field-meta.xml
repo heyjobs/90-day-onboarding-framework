@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ATS_Case_Opened__c</fullName>
+    <label>ATS Case Opened</label>
+    <defaultValue>false</defaultValue>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TL_Gate_Readiness__c</fullName>
+    <label>TL Gate Readiness</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>Yes - Ready</fullName><default>false</default><label>Yes - Ready</label></value>
+            <value><fullName>No - Must-Close Items Open</fullName><default>false</default><label>No - Must-Close Items Open</label></value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

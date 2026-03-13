@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Expansion_Signals__c</fullName>
+    <label>Expansion Signals</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>None</fullName><default>false</default><label>None</label></value>
+            <value><fullName>Additional Locations</fullName><default>false</default><label>Additional Locations</label></value>
+            <value><fullName>Additional Products</fullName><default>false</default><label>Additional Products</label></value>
+            <value><fullName>Team Growth</fullName><default>false</default><label>Team Growth</label></value>
+            <value><fullName>Multiple Signals</fullName><default>false</default><label>Multiple Signals</label></value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

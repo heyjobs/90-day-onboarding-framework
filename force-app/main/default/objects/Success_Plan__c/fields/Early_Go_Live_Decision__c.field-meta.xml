@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Early_Go_Live_Decision__c</fullName>
+    <label>Early Go-Live Decision</label>
+    <type>Picklist</type>
+    <required>false</required>
+    <valueSet>
+        <restricted>false</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>Not Applicable - Standard</fullName><default>false</default></value>
+            <value><fullName>Early Go-Live - Customer Request</fullName><default>false</default></value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

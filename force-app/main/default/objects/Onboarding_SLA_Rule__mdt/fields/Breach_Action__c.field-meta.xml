@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Breach_Action__c</fullName>
+    <label>Breach Action</label>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value><fullName>Now-Item</fullName><default>true</default><label>Now-Item</label></value>
+            <value><fullName>Now-Item + TL Alert</fullName><default>false</default><label>Now-Item + TL Alert</label></value>
+            <value><fullName>Close-Off Blocked</fullName><default>false</default><label>Close-Off Blocked</label></value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

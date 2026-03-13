@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Forward_Planning__c</fullName>
+    <label>Forward Planning (3-12M)</label>
+    <description>Post-review context for BAU successor</description>
+    <length>32768</length>
+    <visibleLines>3</visibleLines>
+    <type>LongTextArea</type>
+</CustomField>
