@@ -14,6 +14,8 @@ import createAdditionalTouchpoint from '@salesforce/apex/OnboardingController.cr
 import getPilotHandoverTask from '@salesforce/apex/OnboardingController.getPilotHandoverTask';
 import getCustomer360Handover from '@salesforce/apex/OnboardingController.getCustomer360Handover';
 import getAtsOnboardingCase from '@salesforce/apex/OnboardingController.getAtsOnboardingCase';
+import getCallInsights from '@salesforce/apex/OnboardingController.getCallInsights';
+import saveEventAcmNotes from '@salesforce/apex/OnboardingController.saveEventAcmNotes';
 
 const STANDARD_TOUCHPOINTS = [
     { phase: 'PRE-PHASE', phaseKey: 'Pre-Phase', items: [
@@ -106,12 +108,15 @@ export default class OnboardingOverview extends LightningElement {
     pilotHandoverTask;
     customer360Handover;
     atsOnboardingCase;
+    callInsights = {};
     _wiredOnb;
     _wiredSp;
     _wiredAlerts;
     _wiredSla;
     _wiredAdditional;
+    _wiredCallInsights;
     _saveTimeout;
+    _acmNotesSaveTimeout;
 
     // Track which touchpoint is expanded (only one at a time)
     expandedKey = null;
@@ -189,6 +194,37 @@ export default class OnboardingOverview extends LightningElement {
     wiredAdditional(result) {
         this._wiredAdditional = result;
         if (result.data) this.additionalTouchpoints = result.data;
+    }
+
+    // Build touchpoint date map for call insights query
+    get touchpointDateMap() {
+        if (!this.onboarding) return null;
+        const map = {};
+        const dateFields = {
+            'intro': 'Intro_Date__c',
+            'kickoff': 'Kickoff_Date__c',
+            'call1': 'Call1_Date__c',
+            'call2': 'Call2_Date__c',
+            'call3': 'Call3_Date__c',
+            'f2f': 'F2F_Date__c',
+            'call4': 'Call4_Date__c',
+            'call5': 'Call5_Date__c',
+            'call6': 'Call6_Date__c'
+        };
+        let hasAny = false;
+        for (const [key, field] of Object.entries(dateFields)) {
+            if (this.onboarding[field]) {
+                map[key] = this.onboarding[field];
+                hasAny = true;
+            }
+        }
+        return hasAny ? map : null;
+    }
+
+    @wire(getCallInsights, { accountId: '$recordId', touchpointDates: '$touchpointDateMap' })
+    wiredCallInsights(result) {
+        this._wiredCallInsights = result;
+        if (result.data) this.callInsights = result.data;
     }
 
     connectedCallback() {
@@ -429,7 +465,19 @@ export default class OnboardingOverview extends LightningElement {
                     isIntro: tp.key === 'intro',
                     isAtsOnboarding: false,
                     isKampagneabnahme: tp.key === 'kampagneabnahme',
-                    isGeneric: tp.key !== 'ihc1' && tp.key !== 'intro' && tp.key !== 'kampagneabnahme'
+                    isCustomerCall: tp.type === 'Customer' && tp.key !== 'intro' && tp.key !== 'kampagneabnahme',
+                    isGeneric: tp.key !== 'ihc1' && tp.key !== 'intro' && tp.key !== 'kampagneabnahme' && tp.type !== 'Customer',
+                    // Call insight data
+                    callInsight: this.callInsights[tp.key] || null,
+                    hasCallInsight: !!this.callInsights[tp.key],
+                    eventId: this.callInsights[tp.key] ? this.callInsights[tp.key].Id : null,
+                    participantsDisplay: this.callInsights[tp.key]?.Call_Participants__c || '\u2014',
+                    keySummaryDisplay: this.callInsights[tp.key]?.Call_Key_Summary__c || '\u2014',
+                    outcomeDisplay: this.callInsights[tp.key]?.Call_Outcome_Next_Steps__c || '\u2014',
+                    sentimentDisplay: this.callInsights[tp.key]?.Call_Customer_Sentiment__c || '',
+                    hasSentiment: !!this.callInsights[tp.key]?.Call_Customer_Sentiment__c,
+                    sentimentClass: this.getSentimentClass(this.callInsights[tp.key]),
+                    acmNotesValue: this.callInsights[tp.key]?.Call_ACM_Notes__c || ''
                 };
             });
 
@@ -744,6 +792,26 @@ export default class OnboardingOverview extends LightningElement {
         return this.onboarding.Current_Phase__c;
     }
 
+    // ── ACM Notes save (on Event) ──
+
+    handleAcmNotesChange(event) {
+        const eventId = event.currentTarget.dataset.eventId;
+        const notes = event.detail.value;
+        clearTimeout(this._acmNotesSaveTimeout);
+        this._acmNotesSaveTimeout = setTimeout(() => {
+            this.saveAcmNotes(eventId, notes);
+        }, 800);
+    }
+
+    async saveAcmNotes(eventId, notes) {
+        try {
+            await saveEventAcmNotes({ eventId, notes });
+            await refreshApex(this._wiredCallInsights);
+        } catch (e) {
+            this.dispatchEvent(new ShowToastEvent({ title: 'Error', message: e.body?.message || 'Failed to save notes', variant: 'error' }));
+        }
+    }
+
     // ── Helpers ──
 
     getCardClass(isDone, isOverdue, isDue) {
@@ -797,6 +865,14 @@ export default class OnboardingOverview extends LightningElement {
             'Phase 4': 'phase-header phase-header-green'
         };
         return map[phaseKey] || 'phase-header';
+    }
+
+    getSentimentClass(insight) {
+        if (!insight || !insight.Call_Customer_Sentiment__c) return 'sentiment-badge';
+        const s = insight.Call_Customer_Sentiment__c;
+        if (s === 'Positive') return 'sentiment-badge sentiment-positive';
+        if (s === 'Negative') return 'sentiment-badge sentiment-negative';
+        return 'sentiment-badge sentiment-neutral';
     }
 
     formatDate(dateStr) {

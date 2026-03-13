@@ -259,6 +259,31 @@
 
     <!-- ══ Event Fields ══ -->
     <fieldPermissions>
+        <field>Activity.Call_ACM_Notes__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Activity.Call_Customer_Sentiment__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Activity.Call_Key_Summary__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Activity.Call_Outcome_Next_Steps__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Activity.Call_Participants__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <field>Activity.Onboarding_Touchpoint_Type__c</field>
         <editable>true</editable>
         <readable>true</readable>

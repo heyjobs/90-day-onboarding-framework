@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Call_Participants__c</fullName>
+    <label>Call Participants</label>
+    <type>TextArea</type>
+    <inlineHelpText>List of participants on the call. Auto-populated by Demodesk CRM Concierge.</inlineHelpText>
+</CustomField>

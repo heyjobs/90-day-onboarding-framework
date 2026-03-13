@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Call_Outcome_Next_Steps__c</fullName>
+    <label>Outcome &amp; Next Steps</label>
+    <type>TextArea</type>
+    <inlineHelpText>Call outcome and agreed next steps. Auto-populated by Demodesk CRM Concierge.</inlineHelpText>
+</CustomField>
