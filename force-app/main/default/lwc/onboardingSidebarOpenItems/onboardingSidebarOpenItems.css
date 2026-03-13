@@ -1,0 +1,55 @@
+/* Section headers */
+.section-header {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: #706e6b;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid #dddbda;
+}
+
+/* Alert item row */
+.alert-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.alert-content {
+    margin-left: 0.5rem;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Severity dot indicators */
+.severity-dot {
+    display: inline-block;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    margin-top: 0.3rem;
+    flex-shrink: 0;
+}
+
+.severity-red { background-color: #c23934; }
+.severity-amber { background-color: #dd7a01; }
+.severity-blue { background-color: #0070d2; }
+.severity-green { background-color: #2e844a; }
+
+/* Phase label — right-aligned */
+.phase-label {
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+    margin-top: 0.15rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    line-height: 1.4;
+    background-color: #f3f3f3;
+    color: #706e6b;
+    border: 1px solid #dddbda;
+}

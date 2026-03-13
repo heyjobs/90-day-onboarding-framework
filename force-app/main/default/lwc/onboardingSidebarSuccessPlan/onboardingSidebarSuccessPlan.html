@@ -1,0 +1,149 @@
+<template>
+    <template lwc:if={isVisible}>
+        <lightning-card title="Success Plan" icon-name="utility:strategy">
+            <div slot="actions">
+                <span class="saving-text">{savingIndicator}</span>
+                <lightning-badge label="Live \u2014 editable anytime" class="slds-m-left_x-small"></lightning-badge>
+            </div>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <template lwc:if={hasData}>
+                    <div class="sp-grid">
+                        <!-- Customer Goal -->
+                        <div class="sp-row">
+                            <label class="sp-label">Customer Goal</label>
+                            <lightning-textarea
+                                value={customerGoal}
+                                data-field="Customer_Goal__c"
+                                onchange={handleFieldChange}
+                                variant="label-hidden"
+                                max-length="255"
+                                class="sp-field"
+                            ></lightning-textarea>
+                        </div>
+
+                        <!-- Health Status -->
+                        <div class="sp-row">
+                            <label class="sp-label">Health Status</label>
+                            <lightning-combobox
+                                value={healthStatus}
+                                data-field="Health_Status__c"
+                                options={healthOptions}
+                                onchange={handleFieldChange}
+                                variant="label-hidden"
+                                class="sp-field"
+                            ></lightning-combobox>
+                        </div>
+
+                        <!-- O-Min -->
+                        <div class="sp-row">
+                            <label class="sp-label">O-Min</label>
+                            <lightning-combobox
+                                value={oMinStatus}
+                                data-field="O_Min_Status__c"
+                                options={oMinOptions}
+                                onchange={handleFieldChange}
+                                variant="label-hidden"
+                                class="sp-field"
+                            ></lightning-combobox>
+                        </div>
+
+                        <!-- Performance Signal -->
+                        <div class="sp-row">
+                            <label class="sp-label">Performance Signal</label>
+                            <lightning-combobox
+                                value={perfSignal}
+                                data-field="Performance_Signal__c"
+                                options={perfOptions}
+                                onchange={handleFieldChange}
+                                variant="label-hidden"
+                                class="sp-field"
+                            ></lightning-combobox>
+                        </div>
+
+                        <!-- KPI Draft -->
+                        <div class="sp-row">
+                            <label class="sp-label">KPI Draft</label>
+                            <lightning-textarea
+                                value={kpiDraft}
+                                data-field="KPI_Draft__c"
+                                onchange={handleFieldChange}
+                                variant="label-hidden"
+                                placeholder="Directional KPIs..."
+                                class="sp-field"
+                            ></lightning-textarea>
+                        </div>
+
+                        <!-- Next-Step Signal -->
+                        <div class="sp-row">
+                            <label class="sp-label">Next-Step Signal</label>
+                            <lightning-combobox
+                                value={nextStepSignal}
+                                data-field="Next_Step_Signal__c"
+                                options={nextStepOptions}
+                                onchange={handleFieldChange}
+                                variant="label-hidden"
+                                class="sp-field"
+                            ></lightning-combobox>
+                        </div>
+
+                        <!-- Next-Step Rec (0-3M) -->
+                        <div class="sp-row">
+                            <label class="sp-label">Next-Step Rec. (0\u20133M)</label>
+                            <lightning-textarea
+                                value={nextStepRec}
+                                data-field="Next_Step_Recommendation__c"
+                                onchange={handleFieldChange}
+                                variant="label-hidden"
+                                placeholder="Renewal \u00B7 Conversion \u00B7 Extension \u00B7 At Risk..."
+                                class="sp-field"
+                            ></lightning-textarea>
+                        </div>
+
+                        <!-- Budget Timeline -->
+                        <div class="sp-row">
+                            <label class="sp-label">Budget Timeline</label>
+                            <lightning-input
+                                type="text"
+                                value={budgetTimeline}
+                                data-field="Budget_Timeline__c"
+                                onchange={handleFieldChange}
+                                variant="label-hidden"
+                                placeholder="e.g. Q4 planning Sept 2026"
+                                class="sp-field"
+                            ></lightning-input>
+                        </div>
+
+                        <!-- Recruiting Process E2E -->
+                        <div class="sp-row">
+                            <label class="sp-label">Recruiting Process E2E</label>
+                            <lightning-textarea
+                                value={recruitingProcess}
+                                data-field="Recruiting_Process_E2E__c"
+                                onchange={handleFieldChange}
+                                variant="label-hidden"
+                                placeholder="Enter after Call #2..."
+                                class="sp-field"
+                            ></lightning-textarea>
+                        </div>
+
+                        <!-- Internal Dynamics -->
+                        <div class="sp-row">
+                            <label class="sp-label">Internal Dynamics</label>
+                            <lightning-textarea
+                                value={internalDynamics}
+                                data-field="Internal_Dynamics__c"
+                                onchange={handleFieldChange}
+                                variant="label-hidden"
+                                placeholder="Blockers \u00B7 influencers..."
+                                class="sp-field"
+                            ></lightning-textarea>
+                        </div>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <p class="slds-text-body_small slds-text-color_weak">No Success Plan found.</p>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+</template>

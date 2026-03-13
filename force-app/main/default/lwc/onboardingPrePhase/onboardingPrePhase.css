@@ -1,0 +1,94 @@
+/* Touchpoint card — explicit border since slds-card doesn't render in shadow DOM */
+.touchpoint-card {
+    border: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+    border-radius: 0.25rem;
+    background-color: var(--slds-g-color-neutral-base-100, #fff);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.touchpoint-card-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+}
+
+/* Badge colors */
+.badge-internal {
+    background-color: var(--slds-g-color-brand-base-50, #9050e9);
+    color: #fff;
+}
+
+.badge-customer {
+    background-color: var(--slds-g-color-brand-base-40, #0070d2);
+    color: #fff;
+}
+
+.badge-success {
+    background-color: var(--slds-g-color-success-base-40, #2e844a);
+    color: #fff;
+}
+
+/* Progress bar for Gate 1 */
+.progress-bar-container {
+    height: 0.5rem;
+    background-color: var(--slds-g-color-neutral-base-80, #dddbda);
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--slds-g-color-success-base-40, #2e844a);
+    border-radius: 0.25rem;
+    transition: width 0.3s ease;
+}
+
+/* Checklist items */
+.checklist-item {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+}
+
+.checklist-item:last-child {
+    border-bottom: none;
+}
+
+.checklist-hint {
+    font-size: var(--slds-g-font-scale-neg-x-small, 0.75rem);
+    color: var(--slds-g-color-neutral-base-30, #706e6b);
+}
+
+/* Intro Call item spacing */
+.intro-item {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+}
+
+.intro-item:last-child {
+    border-bottom: none;
+}
+
+.intro-hint {
+    font-size: var(--slds-g-font-scale-neg-x-small, 0.75rem);
+    color: var(--slds-g-color-neutral-base-30, #706e6b);
+    padding-left: 1.75rem;
+}
+
+.intro-field {
+    padding-left: 1.75rem;
+}
+
+/* Event link row */
+.event-link-row {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    border-top: 1px solid var(--slds-g-color-border-base-1, #e5e5e5);
+    background-color: var(--slds-g-color-neutral-base-95, #fafaf9);
+}
+
+.event-link-row lightning-input {
+    max-width: 14rem;
+}

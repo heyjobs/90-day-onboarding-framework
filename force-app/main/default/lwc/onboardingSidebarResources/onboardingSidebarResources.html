@@ -1,0 +1,36 @@
+<template>
+    <template lwc:if={isVisible}>
+        <lightning-card title="Resources" icon-name="utility:knowledge_base">
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <!-- Resource links -->
+                <ul class="slds-list_dotted slds-m-bottom_medium">
+                    <template for:each={resources} for:item="res">
+                        <li key={res.id} class="slds-m-bottom_x-small">
+                            <lightning-icon icon-name={res.icon} size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                            <a href={res.url} target="_blank">{res.label}</a>
+                        </li>
+                    </template>
+                </ul>
+
+                <!-- Day-0 Logic Reference table -->
+                <h3 class="slds-text-title_caps slds-m-bottom_x-small">Day-0 Logic Reference</h3>
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            <th scope="col"><div class="slds-truncate" title="Product">Product</div></th>
+                            <th scope="col"><div class="slds-truncate" title="Day-0 Trigger">Day-0 Trigger</div></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={day0Logic} for:item="row">
+                            <tr key={row.id}>
+                                <td><div class="slds-truncate">{row.product}</div></td>
+                                <td><div class="slds-truncate">{row.trigger}</div></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </lightning-card>
+    </template>
+</template>

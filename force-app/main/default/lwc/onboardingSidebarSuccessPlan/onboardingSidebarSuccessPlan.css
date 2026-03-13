@@ -1,0 +1,29 @@
+.sp-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.sp-row {
+    padding: 0.25rem 0;
+}
+
+.sp-label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    color: #706e6b;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.125rem;
+}
+
+.sp-field {
+    width: 100%;
+}
+
+.saving-text {
+    font-size: 0.75rem;
+    color: #706e6b;
+    font-style: italic;
+}
