@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Onboarding_Touchpoint_Type__c</fullName>
+    <label>Onboarding Touchpoint Type</label>
+    <type>Picklist</type>
+    <required>false</required>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Ad-hoc Call</fullName>
+                <default>true</default>
+                <label>Ad-hoc Call</label>
+            </value>
+            <value>
+                <fullName>Escalation</fullName>
+                <default>false</default>
+                <label>Escalation</label>
+            </value>
+            <value>
+                <fullName>Additional Meeting</fullName>
+                <default>false</default>
+                <label>Additional Meeting</label>
+            </value>
+            <value>
+                <fullName>Check-in</fullName>
+                <default>false</default>
+                <label>Check-in</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
