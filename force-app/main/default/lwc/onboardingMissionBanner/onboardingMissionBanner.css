@@ -1,0 +1,53 @@
+.mission-box {
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.mission-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.375rem;
+}
+
+.mission-icon-wrap {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+}
+
+.mission-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mission-text {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.mission-customer {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    font-size: 0.75rem;
+    display: flex;
+    gap: 0.375rem;
+}
+
+.mission-customer-label {
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.mission-customer-text {
+    color: #555;
+}
