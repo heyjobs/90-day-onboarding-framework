@@ -219,6 +219,83 @@ export default class OnboardingOverview extends LightningElement {
         }, 100);
     }
 
+    // ── Computed: Progress Summary ──
+
+    get slaScore() {
+        if (!this.onboarding || this.onboarding.SLA_Adherence_Score__c == null) {
+            // Compute client-side from SLA results as fallback
+            if (!this.slaResults || this.slaResults.length === 0) return null;
+            let completed = 0;
+            let onTime = 0;
+            this.slaResults.forEach(r => {
+                if (r.completedDate) {
+                    completed++;
+                    if (r.status === 'On-Time') onTime++;
+                }
+            });
+            return completed > 0 ? Math.round((onTime / completed) * 100) : null;
+        }
+        return Math.round(this.onboarding.SLA_Adherence_Score__c);
+    }
+
+    get hasSlaScore() {
+        return this.slaScore !== null;
+    }
+
+    get slaScoreDisplay() {
+        return this.slaScore != null ? `${this.slaScore}%` : '\u2014';
+    }
+
+    get slaScoreLabel() {
+        if (this.slaScore == null) return '';
+        if (this.slaScore >= 90) return 'Excellent';
+        if (this.slaScore >= 70) return 'Acceptable';
+        return 'Needs Attention';
+    }
+
+    get slaScoreClass() {
+        if (this.slaScore == null) return 'score-value';
+        if (this.slaScore >= 90) return 'score-value score-green';
+        if (this.slaScore >= 70) return 'score-value score-yellow';
+        return 'score-value score-red';
+    }
+
+    get slaScoreBadgeClass() {
+        if (this.slaScore == null) return 'score-badge';
+        if (this.slaScore >= 90) return 'score-badge score-badge-green';
+        if (this.slaScore >= 70) return 'score-badge score-badge-yellow';
+        return 'score-badge score-badge-red';
+    }
+
+    get touchpointsDone() {
+        if (!this.slaResults) return 0;
+        return this.slaResults.filter(r => r.completedDate).length;
+    }
+
+    get touchpointsTotal() {
+        if (!this.slaResults) return 0;
+        return this.slaResults.length;
+    }
+
+    get touchpointProgressDisplay() {
+        return `${this.touchpointsDone}/${this.touchpointsTotal}`;
+    }
+
+    get touchpointProgressBarStyle() {
+        if (!this.touchpointsTotal) return 'width:0%';
+        return `width:${(this.touchpointsDone / this.touchpointsTotal) * 100}%`;
+    }
+
+    get currentPhaseDisplay() {
+        if (!this.onboarding || !this.onboarding.Current_Phase__c) return '\u2014';
+        return this.onboarding.Current_Phase__c;
+    }
+
+    get currentDayDisplay() {
+        if (!this.onboarding || this.onboarding.Current_Day__c == null) return '\u2014';
+        return `Day ${this.onboarding.Current_Day__c}/90`;
+    }
+
     // ── Computed: Alerts ──
 
     get hasAlerts() {

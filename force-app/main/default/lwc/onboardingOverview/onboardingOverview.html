@@ -1,5 +1,38 @@
 <template>
     <template lwc:if={hasOnboarding}>
+        <!-- Progress Summary -->
+        <div class="card slds-m-bottom_small">
+            <div class="card-header">
+                <span class="card-title">90-Day Progress</span>
+                <span class="progress-day-badge">{currentDayDisplay}</span>
+            </div>
+            <div class="card-body">
+                <div class="progress-summary">
+                    <div class="progress-col">
+                        <span class="progress-label">SLA Adherence</span>
+                        <template lwc:if={hasSlaScore}>
+                            <span class={slaScoreClass}>{slaScoreDisplay}</span>
+                            <span class={slaScoreBadgeClass}>{slaScoreLabel}</span>
+                        </template>
+                        <template lwc:else>
+                            <span class="score-value">No data yet</span>
+                        </template>
+                    </div>
+                    <div class="progress-col">
+                        <span class="progress-label">Touchpoints Completed</span>
+                        <span class="score-value">{touchpointProgressDisplay}</span>
+                        <div class="tp-progress-bar">
+                            <div class="tp-progress-fill" style={touchpointProgressBarStyle}></div>
+                        </div>
+                    </div>
+                    <div class="progress-col">
+                        <span class="progress-label">Current Phase</span>
+                        <span class="score-value">{currentPhaseDisplay}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Touchpoint Timeline -->
         <div class="card">
             <div class="card-header">
