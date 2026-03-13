@@ -1,0 +1,60 @@
+.day-badge {
+    display: inline-block;
+    padding: 0.0625rem 0.5rem;
+    border-radius: 0.125rem;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    background-color: #f4f6f9;
+    color: #706e6b;
+    border: 1px solid #dddbda;
+    vertical-align: middle;
+    margin-left: 0.25rem;
+}
+
+.status-grid {
+    display: flex;
+    flex-direction: column;
+}
+
+.status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4375rem 0;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.status-row:last-child {
+    border-bottom: none;
+}
+
+.status-label {
+    color: #706e6b;
+    font-size: 0.8125rem;
+}
+
+.status-val {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-align: right;
+}
+
+.status-bold {
+    font-weight: 700;
+}
+
+.status-green {
+    color: #2e844a;
+}
+
+.status-yellow {
+    color: #c96b00;
+}
+
+.status-amber {
+    color: #c96b00;
+}
+
+.status-red {
+    color: #ba0517;
+}

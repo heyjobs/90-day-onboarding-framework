@@ -1,0 +1,20 @@
+.highlight-panel {
+    display: flex;
+    align-items: center;
+    padding: 0.625rem 0.875rem;
+    border-radius: 0.25rem;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+}
+
+.highlight-brand {
+    background-color: #f0e8ff;
+    border-left: 4px solid #7526c4;
+    color: #3b1370;
+}
+
+.highlight-neutral {
+    background-color: #f3f3f3;
+    border-left: 4px solid #706e6b;
+    color: #3e3e3c;
+}

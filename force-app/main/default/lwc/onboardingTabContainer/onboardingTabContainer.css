@@ -1,0 +1,9 @@
+:host {
+    display: block;
+}
+
+/* Spacing between path and content */
+.slds-p-around_medium {
+    padding-top: 1rem;
+}
+

@@ -1,0 +1,31 @@
+<template>
+    <template lwc:if={isVisible}>
+        <lightning-card title="Mission" icon-name="utility:target">
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <template lwc:if={isOverviewPhase}>
+                    <!-- Overview: general guidance -->
+                    <div class="highlight-panel highlight-neutral slds-m-bottom_small">
+                        <lightning-icon icon-name="utility:info" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        <span>{missionText}</span>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <!-- ACM Mission -->
+                    <div class="highlight-panel highlight-brand slds-m-bottom_x-small">
+                        <lightning-icon icon-name="utility:target" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        <span><strong>ACM Mission:</strong> {missionText}</span>
+                    </div>
+
+                    <!-- Expected Customer State -->
+                    <div class="highlight-panel highlight-neutral slds-m-bottom_small">
+                        <lightning-icon icon-name="utility:people" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        <span><strong>Expected Customer State:</strong> {customerStateText}</span>
+                    </div>
+                </template>
+
+                <!-- Phase Overview -->
+                <p class="slds-text-body_small">{overviewText}</p>
+            </div>
+        </lightning-card>
+    </template>
+</template>
