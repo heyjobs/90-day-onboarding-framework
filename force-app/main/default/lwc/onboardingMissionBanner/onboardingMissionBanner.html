@@ -1,0 +1,15 @@
+<template>
+    <template lwc:if={showBanner}>
+        <div class="mission-box" style={bannerStyle}>
+            <div class="mission-header">
+                <div class="mission-icon-wrap" style={iconWrapStyle}>{icon}</div>
+                <span class="mission-title" style={titleStyle}>{title}</span>
+            </div>
+            <div class="mission-text" style={textStyle}>{mission}</div>
+            <div class="mission-customer">
+                <span class="mission-customer-label" style={labelStyle}>Customer feels:</span>
+                <span class="mission-customer-text">{customerFeels}</span>
+            </div>
+        </div>
+    </template>
+</template>
