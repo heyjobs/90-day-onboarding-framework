@@ -1,0 +1,241 @@
+<template>
+    <template lwc:if={onboarding}>
+
+        <!-- ═══ IHC #1 — Internal Handover Call ═══ -->
+        <div class="touchpoint-card slds-m-bottom_medium">
+            <div class="touchpoint-card-header">
+                <span class="slds-badge slds-m-right_x-small badge-internal">Internal</span>
+                <span class="slds-text-heading_small slds-m-right_x-small"><strong>IHC #1 &mdash; Internal Handover Call</strong></span>
+                <span class="slds-badge slds-badge_lightest">{ihcSlaLabel}</span>
+                <template lwc:if={gate1Validated}>
+                    <span class="slds-badge slds-m-left_medium badge-success">&check; Gate 1 validated</span>
+                </template>
+            </div>
+            <div>
+                <lightning-accordion allow-multiple-sections-open active-section-name="gate1-checklist,gate1-fields">
+                    <lightning-accordion-section name="gate1-checklist" label={gate1SectionLabel}>
+                        <!-- Participants banner -->
+                        <div class="slds-scoped-notification slds-media slds-scoped-notification_light slds-m-bottom_small" role="status">
+                            <div class="slds-media__body">
+                                <p>
+                                    <strong>Participants:</strong> AE + ACM + O-Team &middot;
+                                    <strong>Scheduling:</strong> O-Team &middot;
+                                    Gate 1 auto-validates when all {gate1Total} items are checked.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Progress bar -->
+                        <div class="progress-bar-container slds-m-bottom_small">
+                            <div class="progress-bar-fill" style={progressBarStyle}></div>
+                        </div>
+
+                        <!-- Checklist items -->
+                        <template for:each={gate1Items} for:item="item">
+                            <div key={item.key} class="checklist-item">
+                                <lightning-input
+                                    type="checkbox"
+                                    label={item.label}
+                                    checked={item.checked}
+                                    data-field={item.field}
+                                    onchange={handleGate1Check}
+                                ></lightning-input>
+                                <template lwc:if={item.badge}>
+                                    <span class="slds-badge slds-badge_inverse slds-m-left_xx-small">{item.badge}</span>
+                                </template>
+                                <template lwc:if={item.hint}>
+                                    <p class="checklist-hint slds-m-left_xx-large">{item.hint}</p>
+                                </template>
+                            </div>
+                        </template>
+                    </lightning-accordion-section>
+
+                    <lightning-accordion-section name="gate1-fields" label="Gate 1 — Fields (fill after IHC #1)">
+                        <div class="slds-grid slds-gutters_small slds-m-bottom_small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-record-picker
+                                    label="Operator (Primary)"
+                                    placeholder="Search contacts..."
+                                    object-api-name="Contact"
+                                    value={successPlan.Primary_Operator__c}
+                                    data-field="Primary_Operator__c"
+                                    onchange={handleLookupChange}
+                                ></lightning-record-picker>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-record-picker
+                                    label="Senior Stakeholder"
+                                    placeholder="Search contacts..."
+                                    object-api-name="Contact"
+                                    value={successPlan.Senior_Stakeholder__c}
+                                    data-field="Senior_Stakeholder__c"
+                                    onchange={handleLookupChange}
+                                ></lightning-record-picker>
+                            </div>
+                        </div>
+                        <div class="slds-m-bottom_small">
+                            <lightning-input
+                                label="Customer Goal (from Handover)"
+                                value={customerGoal}
+                                data-field="Customer_Goal__c"
+                                onchange={handleSpFieldChange}
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-grid slds-gutters_small slds-m-bottom_small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    label="Red Flags (AE)"
+                                    value={redFlags}
+                                    data-field="Initial_Risk_Assessment__c"
+                                    onchange={handleSpFieldChange}
+                                ></lightning-input>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox
+                                    label="ATS Setup Path"
+                                    value={atsSetupPath}
+                                    options={atsSetupPathOptions}
+                                    data-field="ATS_Setup_Path__c"
+                                    onchange={handleSpFieldChange}
+                                    required
+                                ></lightning-combobox>
+                            </div>
+                        </div>
+                        <div class="slds-grid slds-gutters_small slds-m-bottom_small">
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-combobox
+                                    label="ATS Integration ETA"
+                                    value={atsIntegrationEta}
+                                    options={atsEtaOptions}
+                                    data-field="ATS_Integration_ETA__c"
+                                    onchange={handleSpFieldChange}
+                                    required
+                                ></lightning-combobox>
+                            </div>
+                            <div class="slds-col slds-size_1-of-2">
+                                <lightning-input
+                                    type="date"
+                                    label="Kickoff Date (tentative)"
+                                    value={kickoffDateTentative}
+                                    data-field="Kickoff_Date_Tentative__c"
+                                    onchange={handleOnbFieldChange}
+                                ></lightning-input>
+                            </div>
+                        </div>
+                        <div class="slds-m-bottom_small">
+                            <lightning-textarea
+                                label="Blockers / Open Items"
+                                value={blockersOpenItems}
+                                data-field="Blockers_Open_Items__c"
+                                onchange={handleSpFieldChange}
+                                placeholder="e.g. ATS credentials missing"
+                            ></lightning-textarea>
+                        </div>
+                    </lightning-accordion-section>
+                </lightning-accordion>
+            </div>
+        </div>
+
+        <!-- ═══ Intro Call — Customer Touchpoint ═══ -->
+        <div class="touchpoint-card slds-m-bottom_medium">
+            <div class="touchpoint-card-header">
+                <span class="slds-badge slds-m-right_x-small badge-customer">Customer</span>
+                <span class="slds-text-heading_small slds-m-right_x-small"><strong>Intro Call</strong></span>
+                <span class="slds-badge slds-badge_lightest">{introSlaLabel}</span>
+            </div>
+            <div>
+                <lightning-accordion allow-multiple-sections-open active-section-name="intro-agenda">
+                    <lightning-accordion-section name="intro-agenda" label="Agenda & Guided Documentation">
+                        <!-- Format info banner -->
+                        <div class="slds-scoped-notification slds-media slds-scoped-notification_light slds-m-bottom_small" role="status">
+                            <div class="slds-media__body">
+                                <p>
+                                    &#128222; <strong>Format:</strong> Phone or short video &middot; ACM owned &middot; No customer contact before IHC #1.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Agenda header -->
+                        <div class="slds-box slds-theme_shade slds-m-bottom_small" style="padding:0.5rem 0.75rem">
+                            <lightning-icon icon-name="utility:note" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                            <strong>AGENDA &mdash; DOCUMENT DIRECTLY HERE</strong>
+                        </div>
+
+                        <!-- Intro checklist items -->
+                        <template for:each={introItems} for:item="item">
+                            <div key={item.key} class="intro-item">
+                                <lightning-input
+                                    type="checkbox"
+                                    label={item.label}
+                                    checked={item.checked}
+                                    data-field={item.field}
+                                    data-target={item.target}
+                                    onchange={handleIntroCheck}
+                                ></lightning-input>
+
+                                <template lwc:if={item.hint}>
+                                    <p class="intro-hint">{item.hint}</p>
+                                </template>
+
+                                <template lwc:if={item.textField}>
+                                    <div class="intro-field slds-m-top_xx-small">
+                                        <lightning-textarea
+                                            value={item.textValue}
+                                            data-field={item.textField}
+                                            data-target={item.target}
+                                            onchange={handleIntroTextChange}
+                                            variant="label-hidden"
+                                        ></lightning-textarea>
+                                    </div>
+                                </template>
+
+                                <template lwc:if={item.picklistOptions}>
+                                    <div class="intro-field slds-m-top_xx-small">
+                                        <lightning-combobox
+                                            value={item.picklistValue}
+                                            options={item.picklistOptions}
+                                            data-field={item.field}
+                                            onchange={handleIntroPicklistChange}
+                                            variant="label-hidden"
+                                        ></lightning-combobox>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- Event link row -->
+                        <div class="event-link-row">
+                            <lightning-icon icon-name="utility:link" size="xx-small" class="slds-m-right_xx-small"></lightning-icon>
+                            <span>Documented &amp; linked in SF:</span>
+                            <lightning-input
+                                type="text"
+                                value={introDate}
+                                variant="label-hidden"
+                                class="slds-m-horizontal_x-small"
+                                placeholder="No event linked"
+                                readonly
+                                style="max-width:14rem"
+                            ></lightning-input>
+                            <lightning-button
+                                label="Select Event"
+                                icon-name="utility:link"
+                                variant="brand-outline"
+                            ></lightning-button>
+                        </div>
+                    </lightning-accordion-section>
+                </lightning-accordion>
+            </div>
+        </div>
+
+    </template>
+
+    <template lwc:elseif={error}>
+        <div class="slds-illustration slds-illustration_small slds-p-around_medium">
+            <p class="slds-text-color_error">Error loading onboarding data.</p>
+        </div>
+    </template>
+
+    <template lwc:else>
+        <lightning-spinner alternative-text="Loading..." size="medium"></lightning-spinner>
+    </template>
+</template>

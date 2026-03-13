@@ -1,0 +1,46 @@
+<template>
+    <template lwc:if={isVisible}>
+        <lightning-card icon-name="utility:summary">
+            <span slot="title">
+                {cardTitle} <span class="day-badge">{dayBadge}</span>
+            </span>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <template lwc:if={hasData}>
+                    <div class="status-grid">
+                        <div class="status-row">
+                            <span class="status-label">SLA Score</span>
+                            <span class={slaScoreClass}>{slaScoreDisplay}</span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">Health</span>
+                            <span class={healthClass}>{healthDisplay}</span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">O-Min</span>
+                            <span class={oMinClass}>{oMinDisplay}</span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">Next Due</span>
+                            <span class={nextDueClass}>{nextDueDisplay}</span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">F2F</span>
+                            <span class="status-val">{f2fDisplay}</span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">Senior Stakeholder</span>
+                            <span class={ssClass}>{ssDisplay}</span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-label">Close-Off</span>
+                            <span class="status-val status-bold">{closeOffDisplay}</span>
+                        </div>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <p class="slds-text-body_small slds-text-color_weak">No onboarding record found.</p>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+</template>

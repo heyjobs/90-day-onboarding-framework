@@ -1,0 +1,42 @@
+<template>
+    <template lwc:if={isVisible}>
+        <lightning-card title="Timeline" icon-name="utility:clock">
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <template lwc:if={hasData}>
+                    <!-- Day X of 90 highlight panel -->
+                    <div class="highlight-panel highlight-info slds-m-bottom_small">
+                        <lightning-icon icon-name="utility:clock" size="x-small" class="slds-m-right_x-small"></lightning-icon>
+                        <span class="highlight-text">{clockLabel}</span>
+                    </div>
+
+                    <!-- Progress bar -->
+                    <div class="slds-m-bottom_small">
+                        <div class="progress-bar-container">
+                            <div class={progressColorClass} style={progressBarStyle}></div>
+                        </div>
+                        <p class="slds-text-body_small slds-text-align_center slds-m-top_xx-small">{progressPercent}% complete</p>
+                    </div>
+
+                    <!-- Key info grid -->
+                    <div class="info-grid">
+                        <div class="info-row">
+                            <span class="info-label">Start Date</span>
+                            <span class="info-value">{day0Display}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">End Date</span>
+                            <span class="info-value">{closeOffDisplay}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Action Items</span>
+                            <span class="info-value">{actionItemsLabel}</span>
+                        </div>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <p class="slds-text-body_small slds-text-color_weak">No onboarding record found.</p>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+</template>

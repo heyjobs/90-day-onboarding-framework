@@ -1,0 +1,44 @@
+<template>
+    <template lwc:if={isVisible}>
+        <lightning-card icon-name="utility:task">
+            <span slot="title">
+                Must-Close Items <span class="mc-count">{progressLabel}</span>
+            </span>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <template lwc:if={hasData}>
+                    <div class="mc-progress slds-m-bottom_small">
+                        <div class="mc-progress-bar">
+                            <div class="mc-progress-fill" style={progressBarStyle}></div>
+                        </div>
+                    </div>
+                    <template lwc:if={allComplete}>
+                        <p class="mc-all-done slds-m-bottom_x-small">&#10003; All Must-Close items complete</p>
+                    </template>
+                    <div class="mc-list">
+                        <template for:each={items} for:item="item">
+                            <div key={item.key} class={item.itemClass} data-key={item.key} onclick={handleItemClick}>
+                                <span class={item.iconClass}>
+                                    <template lwc:if={item.checked}>&#10003;</template>
+                                    <template lwc:else>&#9675;</template>
+                                </span>
+                                <div class="mc-content">
+                                    <span class={item.labelClass}>{item.label}</span>
+                                    <span class="mc-detail">{item.detail}</span>
+                                </div>
+                                <template lwc:if={item.checked}>
+                                    <span class="mc-nav-icon mc-nav-icon-muted">&#8250;</span>
+                                </template>
+                                <template lwc:else>
+                                    <span class="mc-nav-icon">&#8250;</span>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <p class="slds-text-body_small slds-text-color_weak">No onboarding record found.</p>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+</template>

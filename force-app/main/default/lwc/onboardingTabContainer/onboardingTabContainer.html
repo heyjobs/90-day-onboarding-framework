@@ -1,0 +1,17 @@
+<template>
+    <div data-id="visibility-marker"></div>
+    <!-- No onboarding record message -->
+    <template lwc:if={error}>
+        <div class="slds-p-around_medium">
+            <p class="slds-text-body_regular slds-text-color_weak">
+                Unable to load onboarding data. Please refresh the page.
+            </p>
+        </div>
+    </template>
+
+    <!-- Mission Banner -->
+    <c-onboarding-mission-banner current-phase={currentPhase}></c-onboarding-mission-banner>
+
+    <!-- Overview Content -->
+    <c-onboarding-overview record-id={recordId}></c-onboarding-overview>
+</template>

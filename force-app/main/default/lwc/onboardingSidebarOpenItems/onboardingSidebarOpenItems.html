@@ -1,0 +1,44 @@
+<template>
+    <template lwc:if={isVisible}>
+        <lightning-card title={cardTitle} icon-name="utility:checklist">
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <template lwc:if={hasAlerts}>
+                    <!-- Now Items -->
+                    <template lwc:if={hasNowAlerts}>
+                        <p class="section-header slds-m-bottom_xx-small">NOW</p>
+                        <template for:each={nowAlerts} for:item="item">
+                            <div key={item.id} class="alert-item slds-m-bottom_x-small">
+                                <span class={item.severityClass}></span>
+                                <div class="alert-content">
+                                    <p class="slds-text-body_regular"><strong>{item.title}</strong></p>
+                                    <p class="slds-text-body_small slds-text-color_weak">{item.description}</p>
+                                </div>
+                                <span class="phase-label">{item.phase}</span>
+                            </div>
+                        </template>
+                    </template>
+
+                    <!-- Next Items -->
+                    <template lwc:if={hasNextAlerts}>
+                        <p class="section-header slds-m-top_small slds-m-bottom_xx-small">NEXT</p>
+                        <template for:each={nextAlerts} for:item="item">
+                            <div key={item.id} class="alert-item slds-m-bottom_x-small">
+                                <span class={item.severityClass}></span>
+                                <div class="alert-content">
+                                    <p class="slds-text-body_regular"><strong>{item.title}</strong></p>
+                                    <p class="slds-text-body_small slds-text-color_weak">{item.description}</p>
+                                </div>
+                                <span class="phase-label">{item.phase}</span>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+                <template lwc:else>
+                    <p class="slds-text-body_small slds-text-color_weak slds-text-align_center">
+                        No active items. All on track.
+                    </p>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+</template>
