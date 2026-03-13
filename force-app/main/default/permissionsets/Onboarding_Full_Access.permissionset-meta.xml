@@ -140,6 +140,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <field>Onboarding__c.Kampagneabnahme_Call_Quality__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <field>Onboarding__c.Kampagneabnahme_Date__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <field>Onboarding__c.Kickoff_Date__c</field>
         <editable>true</editable>
         <readable>true</readable>
@@ -236,6 +246,13 @@
     </fieldPermissions>
     <fieldPermissions>
         <field>Onboarding__c.Intro_Followup_Sent__c</field>
+        <editable>true</editable>
+        <readable>true</readable>
+    </fieldPermissions>
+
+    <!-- ══ Account Fields ══ -->
+    <fieldPermissions>
+        <field>Account.Integration_Sold__c</field>
         <editable>true</editable>
         <readable>true</readable>
     </fieldPermissions>

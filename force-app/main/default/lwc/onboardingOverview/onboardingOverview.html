@@ -242,6 +242,46 @@
                                             </div>
                                         </template>
 
+                                        <!-- ══ EXPANDED: Kampagneabnahme ══ -->
+                                        <template lwc:if={item.isKampagneabnahme}>
+                                            <div class="expanded-content">
+                                                <div class="expanded-section">
+                                                    <p class="expanded-section-title">Kampagneabnahme — Campaign Acceptance Call</p>
+                                                    <div class="slds-grid slds-gutters_small slds-m-top_small slds-m-bottom_small">
+                                                        <div class="slds-col slds-size_1-of-3">
+                                                            <lightning-input
+                                                                type="date"
+                                                                label="Date"
+                                                                value={kampagneabnahmeLocalDate}
+                                                                onchange={handleKampagneabnahmeDatePartChange}
+                                                                data-field="date"
+                                                            ></lightning-input>
+                                                        </div>
+                                                        <div class="slds-col slds-size_1-of-3">
+                                                            <lightning-input
+                                                                type="time"
+                                                                label="Time"
+                                                                value={kampagneabnahmeLocalTime}
+                                                                onchange={handleKampagneabnahmeDatePartChange}
+                                                                data-field="time"
+                                                            ></lightning-input>
+                                                        </div>
+                                                        <div class="slds-col slds-size_1-of-3">
+                                                            <lightning-combobox
+                                                                label="Call Quality"
+                                                                value={kampagneabnahmeCallQuality}
+                                                                options={callQualityOptions}
+                                                                onchange={handleKampagneabnahmeQualityChange}
+                                                            ></lightning-combobox>
+                                                        </div>
+                                                    </div>
+                                                    <p class="slds-text-body_small slds-text-color_weak slds-m-top_x-small">
+                                                        For non-integration deals only. This call marks the campaign acceptance with the customer.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </template>
+
                                         <!-- ══ EXPANDED: Generic (future phases) ══ -->
                                         <template lwc:if={item.isGeneric}>
                                             <div class="expanded-content">

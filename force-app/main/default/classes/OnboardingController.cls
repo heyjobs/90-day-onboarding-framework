@@ -26,7 +26,9 @@ public with sharing class OnboardingController {
         'Review_Date__c', 'Review_Format__c', 'Review_SS_Confirmed__c',
         'Onboarding_Satisfaction_Score__c',
         'SLA_Adherence_Score__c', 'Success_Plan__c',
-        'Segment__c', 'Onboarding_Medium__c'
+        'Segment__c', 'Onboarding_Medium__c',
+        'Kampagneabnahme_Date__c', 'Kampagneabnahme_Call_Quality__c',
+        'Account__r.Integration_Sold__c'
     }, ', ');
 
     private static final String SP_FIELDS = String.join(new List<String>{
@@ -90,8 +92,19 @@ public with sharing class OnboardingController {
     @AuraEnabled
     public static Onboarding__c saveOnboarding(Id recordId, Map<String, Object> fields) {
         Onboarding__c record = new Onboarding__c(Id = recordId);
+        Map<String, Schema.SObjectField> fieldMap = Schema.SObjectType.Onboarding__c.fields.getMap();
         for (String fieldName : fields.keySet()) {
-            record.put(fieldName, fields.get(fieldName));
+            Object val = fields.get(fieldName);
+            Schema.SObjectField sof = fieldMap.get(fieldName);
+            if (sof != null && val instanceof String) {
+                Schema.DisplayType dt = sof.getDescribe().getType();
+                if (dt == Schema.DisplayType.DATETIME) {
+                    val = Datetime.valueOf(((String) val).replace('T', ' ').replace('Z', ''));
+                } else if (dt == Schema.DisplayType.DATE) {
+                    val = Date.valueOf((String) val);
+                }
+            }
+            record.put(fieldName, val);
         }
         update record;
         // Recompute aggregate SLA score after saving touchpoint dates
